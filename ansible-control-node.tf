@@ -14,7 +14,7 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"]
 }
 
-resource "aws_instance" "example" {
+resource "aws_instance" "ansible_control_node" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
 }
