@@ -26,8 +26,8 @@ resource "aws_instance" "ansible_control_node" {
 }
 
 resource "aws_network_interface" "primary_network_interface" {
-  subnet_id   = #TODO: what is the subnet id?
-  private_ips = #WHAT IP's are available in our range/subnet?
+  subnet_id   = aws_subnet.subnet.id #TODO: what is the subnet id?
+  private_ips = "10.0.1.1" #WHAT IP's are available in our range/subnet?
 
   tags = {
     Name = "primary_network_interface"
