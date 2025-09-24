@@ -19,4 +19,17 @@ resource "aws_instance" "ansible_control_node" {
   instance_type = "t3.micro"
 
   user_data     = filebase64("${path.root}/scripts/ansible-control-userdata.sh")
+
+  primary_network_interface {
+    network_interface_id = aws_network_interface.primary_network_interface.id
+  }
+}
+
+resource "aws_network_interface" "primary_network_interface" {
+  subnet_id   = #TODO: what is the subnet id?
+  private_ips = #WHAT IP's are available in our range/subnet?
+
+  tags = {
+    Name = "primary_network_interface"
+  }
 }
