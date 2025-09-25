@@ -1,10 +1,8 @@
-name: Test
+name: Infrastructure
 
 on:
     pull_request:
-    push:
-        branches:
-        - dev
+        
 jobs:
     Infrastructure-Deployment:
         uses: The-Wild-West/Shareable-Workflows/.github/workflows/terraform-cost.yaml@main
