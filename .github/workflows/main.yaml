@@ -5,6 +5,10 @@ on:
 
 jobs:
     Infrastructure-Deployment:
+        permissions:
+            id-token: write
+            contents: read
+            pull-requests: write
         uses: The-Wild-West/Shareable-Workflows/.github/workflows/terraform-cost.yaml@main
         secrets:
             admin_account_id: ${{ secrets.ADMIN_ACCOUNT_ID }}
