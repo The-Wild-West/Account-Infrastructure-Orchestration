@@ -33,7 +33,7 @@ resource "aws_vpc_peering_connection" "uat_peer" {
   vpc_id        = aws_vpc.main.id
 }
 
-resource "aws_vpc_peering_connection" "dev_peer" {
+resource "aws_vpc_peering_connection" "prod_peer" {
   peer_owner_id = var.prod_account_id
   peer_vpc_id   = var.peer_vpc_id_prod
   peer_region   = "us-east-1"
