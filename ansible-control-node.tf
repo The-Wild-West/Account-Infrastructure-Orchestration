@@ -16,7 +16,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "ansible_control_node" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
+  instance_type = "m5.large"
 
   user_data     = filebase64("${path.root}/scripts/ansible-control-userdata.sh")
 
