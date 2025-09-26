@@ -20,14 +20,15 @@ resource "aws_instance" "ansible_control_node" {
 
   user_data     = filebase64("${path.root}/scripts/ansible-control-userdata.sh")
 
-  primary_network_interface {
+  network_interface {
     network_interface_id = aws_network_interface.primary_network_interface.id
+    device_index         = 0
   }
 }
 
 resource "aws_network_interface" "primary_network_interface" {
   subnet_id   = aws_subnet.subnet.id
-  private_ips = "10.0.1.1"
+  private_ips = ["10.0.1.1"]
 
   tags = {
     Name = "primary_network_interface"
