@@ -1,6 +1,6 @@
 output "vpc_id" {
   description = "id of the root account vpc"
-  value       = aws_vpc.main.idÏ
+  value       = aws_vpc.main.id
 }
 
 output "vpc_subnet_id" {
