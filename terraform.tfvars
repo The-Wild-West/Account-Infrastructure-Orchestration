@@ -1,3 +1,3 @@
-peer_vpc_id_dev = "vpc-08a90d464edb94d9d"
-peer_vpc_id_uat = "vpc-090d459c8ddc24d59"
-peer_vpc_id_prod = "vpc-06c88a21e5434e112"
+peer_vpc_id_dev = "vpc-071ff135f9ab2106e"
+peer_vpc_id_uat = "vpc-0ba2f9bd2e51acfc6"
+peer_vpc_id_prod = "vpc-0c1b24b4956e57285"
