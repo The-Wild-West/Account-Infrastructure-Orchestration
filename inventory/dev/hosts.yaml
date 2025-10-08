@@ -1,0 +1,12 @@
+all:
+  vars:
+    ansible_user: ubuntu
+  hosts:
+    aws_admin:
+      ansible_user: root
+      ansible_become: no
+      ansible_connection: local
+  children:
+    webservers:
+      children:
+        tag_purpose_webserver_dev:
