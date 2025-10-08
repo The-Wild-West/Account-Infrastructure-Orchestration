@@ -1,9 +1,7 @@
 plugin: amazon.aws.aws_ec2
 
-aws_profile: default
 sts_assume_role:
   role_arn: arn:aws:iam::856364870650:role/ansible_cross_account_role
-  external_id: ansible-automation
 
 regions:
   - us-east-1
