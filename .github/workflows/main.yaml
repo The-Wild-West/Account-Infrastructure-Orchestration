@@ -45,7 +45,7 @@ jobs:
               run: |
                 aws ssm send-command \
                 --instance-ids "i-0911f2c2c3c485be7" \
-                --document-name "AWS-SendCommand" \
+                --document-name "AWS-RunShellScript" \
                 --parameters '{"commands":["mkdir -p /home/ubuntu/ansible","cd /home/ubuntu/ansible","git clone https://github.com/The-Wild-West/Account-Infrastructure-Orchestration.git .","cp -r inventory /etc/ansible/"]}' \
                 --region us-east-1  
               
