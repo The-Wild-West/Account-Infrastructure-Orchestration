@@ -32,6 +32,11 @@ jobs:
         runs-on: ubuntu-latest
         if: github.event_name == 'push' || github.event.pull_request.merged == true
         steps:
+            - name: AWS Login - Management Environment
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                role-to-assume: arn:aws:iam::${{ secrets.admin_account_id }}:role/${{ secrets.role_name }}
+                aws-region: us-east-1
             - name: Copy Inventory Files
               shell: bash
               run: |
