@@ -29,6 +29,9 @@ jobs:
             admin_account_id: ${{ secrets.ADMIN_ACCOUNT_ID }}
             role_name: ${{ secrets.OIDC_ROLE_PREFIX }}
     Ansible-Configuration:
+        permissions:
+            id-token: write
+            contents: read
         runs-on: ubuntu-latest
         if: github.event_name == 'push' || github.event.pull_request.merged == true
         steps:
