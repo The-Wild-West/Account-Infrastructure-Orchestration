@@ -38,7 +38,7 @@ jobs:
             - name: AWS Login - Management Environment
               uses: aws-actions/configure-aws-credentials@v4
               with:
-                role-to-assume: arn:aws:iam::${{ secrets.admin_account_id }}:role/${{ secrets.role_name }}
+                role-to-assume: arn:aws:iam::${{ secrets.ADMIN_ACCOUNT_ID }}:role/${{ secrets.OIDC_ROLE_PREFIX }}
                 aws-region: us-east-1
             - name: Copy Inventory Files
               shell: bash
