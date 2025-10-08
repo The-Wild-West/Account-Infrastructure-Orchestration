@@ -15,5 +15,15 @@ sudo dpkg -i amazon-ssm-agent.deb
 sudo systemctl enable amazon-ssm-agent
 rm amazon-ssm-agent.deb
 
+#Install AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+rm -rf aws awscliv2.zip
+
+#Install Python dependencies
+sudo apt install -y python3-pip
+pip3 install boto3 botocore
+
 #Install Ansible collections
 sudo ansible-galaxy collection install amazon.aws
