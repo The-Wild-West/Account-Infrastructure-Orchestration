@@ -27,4 +27,3 @@ pip3 install boto3 botocore
 
 #Install Ansible collections
 sudo ansible-galaxy collection install amazon.aws
-sudo ansible-galaxy collection install community.aws
