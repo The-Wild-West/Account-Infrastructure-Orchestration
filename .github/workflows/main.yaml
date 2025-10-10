@@ -52,18 +52,19 @@ jobs:
 
                 #describe the instance status
                 status=$(aws ec2 describe-instance-status --instance-ids "$INSTANCE_ID" \
-                | jq -r '.InstanceStatus.Status')
+                | jq -r '.InstanceStatuses[0].InstanceStatus.Status')
                 
                 count=0
                 #wait for status to be ok
-                while [$status != 'ok']; do
+                while [[ "$status" != "ok" ]]; do
                     status=$(aws ec2 describe-instance-status --instance-ids "$INSTANCE_ID" \
-                    | jq -r '.InstanceStatus.Status')
+                    | jq -r '.InstanceStatuses[0].InstanceStatus.Status')
                     sleep 10
-                    count+=1
-                    if count >= 10
+                    ((count++))
+                    if [[ $count -ge 10 ]]; then
                         break
                     fi
+                done
 
                 aws ssm send-command \
                 --instance-ids "$INSTANCE_ID" \
