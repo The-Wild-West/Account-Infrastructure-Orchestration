@@ -35,10 +35,14 @@ jobs:
         if: github.event_name == 'push' || github.event.pull_request.merged == true
         steps:
             - name: Display Outputs
+              id: display_outputs
               run: |
                 cat << 'EOF' >> GITHUB_OUTPUT
                 all_outputs_json=${{ needs.Infrastructure-Deployment.outputs.all_outputs_json }}
                 EOF
+            - name: Convert Outputs
+              run: |
+                echo "ansible_control_node_id=${{ steps.display_outputs.outputs.all_outputs_json }} | jq -r '.control_node_id.value" >> GITHUB_OUTPUT
     Ansible-Configuration:
         permissions:
             id-token: write
