@@ -44,6 +44,7 @@ jobs:
               run: |
                 CONTROL_NODE_ID=$(echo '${{ needs.Infrastructure-Deployment.outputs.all_outputs_json }}' | jq -r '.control_node_id.value')
                 echo "ansible_control_node_id=$CONTROL_NODE_ID" >> GITHUB_OUTPUT
+                echo '$ansible_control_node_id'
     Ansible-Configuration:
         needs: Write-Outputs
         permissions:
