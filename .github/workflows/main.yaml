@@ -5,6 +5,7 @@ on:
     push:
         branches:
             - main
+            - feature-workflow
 
 jobs:
     Infrastructure-Cost:
@@ -22,12 +23,20 @@ jobs:
             id-token: write
             contents: read
         if: github.event_name == 'push' || github.event.pull_request.merged == true
-        uses: The-Wild-West/Shareable-Workflows/.github/workflows/terraform-apply.yaml@main
+        uses: The-Wild-West/Shareable-Workflows/.github/workflows/terraform-apply.yaml@uat
         with:
             environment: 'root'
         secrets:
             admin_account_id: ${{ secrets.ADMIN_ACCOUNT_ID }}
             role_name: ${{ secrets.OIDC_ROLE_PREFIX }}
+    Write-Outputs:
+        runs-on: ubuntu-latest
+        needs: Infrastructure-Deployment
+        if: github.event_name == 'push' || github.event.pull_request.merged == true
+        steps:
+            - name: Display Outputs
+              run: |
+                echo "all_outputs_json=${{ needs.Infrastructure-Deployment.outputs.all_outputs_json }}" >> GITHUB_OUTPUT
     Ansible-Configuration:
         permissions:
             id-token: write
