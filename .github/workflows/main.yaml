@@ -66,7 +66,7 @@ jobs:
                     echo "New Status: $status"
                     sleep 10
                     echo "sleep over"
-                    ((count++))
+                    ((count = count + 1))
                     echo "incremented count"
                     echo "New count: $count"
                     if [[ $count -ge 10 ]]; then
