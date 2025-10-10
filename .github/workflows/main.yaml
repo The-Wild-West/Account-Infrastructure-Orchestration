@@ -42,7 +42,8 @@ jobs:
                 EOF
             - name: Convert Outputs
               run: |
-                echo "ansible_control_node_id=${{ steps.display_outputs.outputs.all_outputs_json }} | jq -r '.control_node_id.value'" >> GITHUB_OUTPUT
+                CONTROL_NODE_ID=$(echo '${{ needs.Infrastructure-Deployment.outputs.all_outputs_json }}' | jq -r '.control_node_id.value')
+                echo "ansible_control_node_id=$CONTROL_NODE_ID" >> GITHUB_OUTPUT
     Ansible-Configuration:
         needs: Write-Outputs
         permissions:
