@@ -1,8 +1,5 @@
 plugin: amazon.aws.aws_ec2
 
-sts_assume_role:
-  role_arn: arn:aws:iam::856364870650:role/ansible_cross_account_role
-
 regions:
   - us-east-1
 

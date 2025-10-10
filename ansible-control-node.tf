@@ -25,6 +25,8 @@ resource "aws_instance" "ansible_control_node" {
     network_interface_id = aws_network_interface.primary_network_interface.id
     device_index         = 0
   }
+
+  user_data_replace_on_change = true
 }
 
 resource "aws_network_interface" "primary_network_interface" {

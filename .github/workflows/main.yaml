@@ -29,6 +29,7 @@ jobs:
             admin_account_id: ${{ secrets.ADMIN_ACCOUNT_ID }}
             role_name: ${{ secrets.OIDC_ROLE_PREFIX }}
     Ansible-Configuration:
+        needs: Infrastructure-Deployment
         permissions:
             id-token: write
             contents: read
@@ -43,8 +44,10 @@ jobs:
             - name: Copy Inventory Files
               shell: bash
               run: |
+                INSTANCE_ID=$(echo '${{ needs.Infrastructure-Deployment.outputs.all_outputs_json }}' | jq -r '.control_node_id.value')
+                echo "Using instance ID: $INSTANCE_ID"
                 aws ssm send-command \
-                --instance-ids "i-0911f2c2c3c485be7" \
+                --instance-ids "$INSTANCE_ID" \
                 --document-name "AWS-RunShellScript" \
                 --parameters '{"commands":["rm -rf /home/ubuntu/ansible","mkdir -p /home/ubuntu/ansible","cd /home/ubuntu/ansible","git clone https://github.com/The-Wild-West/Account-Infrastructure-Orchestration.git .","sudo rm -rf /etc/ansible/inventory","sudo cp -r inventory /etc/ansible/"]}' \
                 --region us-east-1  
