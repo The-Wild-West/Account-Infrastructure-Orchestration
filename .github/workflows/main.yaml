@@ -51,13 +51,13 @@ jobs:
                 aws ec2 wait instance-running --instance-ids "$INSTANCE_ID"
 
                 #describe the instance status
-                status=$(aws ec2 desribe-instance-status --instance-ids "$INSTANCE_ID" \
+                status=$(aws ec2 describe-instance-status --instance-ids "$INSTANCE_ID" \
                 | jq -r '.InstanceStatus.Status')
                 
                 count=0
                 #wait for status to be ok
                 while [$status != 'ok']; do
-                    status=$(aws ec2 desribe-instance-status --instance-ids "$INSTANCE_ID" \
+                    status=$(aws ec2 describe-instance-status --instance-ids "$INSTANCE_ID" \
                     | jq -r '.InstanceStatus.Status')
                     sleep 10
                     count+=1
