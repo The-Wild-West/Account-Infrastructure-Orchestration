@@ -50,7 +50,7 @@ jobs:
                 echo "ansible_control_node_id=$CONTROL_NODE_ID" >> GITHUB_OUTPUT
                 echo "Step output set to: $CONTROL_NODE_ID"
     Ansible-Configuration:
-        needs: Write-Outputs
+        needs: Infrastructure-Deployment
         permissions:
             id-token: write
             contents: read
@@ -65,9 +65,10 @@ jobs:
             - name: Copy Inventory Files
               shell: bash
               run: |
-                echo '${{ needs.Write-Outputs.outputs.ansible_control_node_id }}'
+                INSTANCE_ID=$(echo '${{ needs.Infrastructure-Deployment.outputs.all_outputs_json }}' | jq -r '.control_node_id.value')
+                echo "Using instance ID: $INSTANCE_ID"
                 aws ssm send-command \
-                --instance-ids "${{ needs.Write-Outputs.outputs.ansible_control_node_id }}" \
+                --instance-ids "$INSTANCE_ID" \
                 --document-name "AWS-RunShellScript" \
                 --parameters '{"commands":["rm -rf /home/ubuntu/ansible","mkdir -p /home/ubuntu/ansible","cd /home/ubuntu/ansible","git clone https://github.com/The-Wild-West/Account-Infrastructure-Orchestration.git .","sudo rm -rf /etc/ansible/inventory","sudo cp -r inventory /etc/ansible/"]}' \
                 --region us-east-1  
