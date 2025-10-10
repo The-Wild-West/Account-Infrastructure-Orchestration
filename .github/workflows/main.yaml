@@ -47,10 +47,24 @@ jobs:
                 INSTANCE_ID=$(echo '${{ needs.Infrastructure-Deployment.outputs.all_outputs_json }}' | jq -r '.control_node_id.value')
                 echo "Using instance ID: $INSTANCE_ID"
                 
-                # Wait for instance to be ready for SSM
-                echo "Waiting for instance to be ready for SSM..."
-                aws ssm wait instance-information-available --instance-id "$INSTANCE_ID" --region us-east-1
+                #wait until the control node is running
+                aws ec2 wait instance-running --instance-ids "$INSTANCE_ID"
+
+                #describe the instance status
+                status=$(aws ec2 desribe-instance-status --instance-ids "$INSTANCE_ID" \
+                | jq -r '.InstanceStatus.Status')
                 
+                count=0
+                #wait for status to be ok
+                while [$status != 'ok']; do
+                    status=$(aws ec2 desribe-instance-status --instance-ids "$INSTANCE_ID" \
+                    | jq -r '.InstanceStatus.Status')
+                    sleep 10
+                    count+=1
+                    if count >= 10
+                        break
+                    fi
+
                 aws ssm send-command \
                 --instance-ids "$INSTANCE_ID" \
                 --document-name "AWS-RunShellScript" \
