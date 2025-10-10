@@ -59,23 +59,14 @@ jobs:
                 count=0
                 #wait for status to be ok
                 while [[ "$status" != "ok" ]]; do
-                    echo "Status: $status"
-                    echo "Count: $count"
                     status=$(aws ec2 describe-instance-status --instance-ids "$INSTANCE_ID" \
                     | jq -r '.InstanceStatuses[0].InstanceStatus.Status')
-                    echo "New Status: $status"
                     sleep 10
-                    echo "sleep over"
                     ((count = count + 1))
-                    echo "incremented count"
-                    echo "New count: $count"
                     if [[ $count -ge 10 ]]; then
-                        echo "entered if"
                         break
                     fi
                 done
-
-                echo "Exit Loop"
 
                 aws ssm send-command \
                 --instance-ids "$INSTANCE_ID" \
