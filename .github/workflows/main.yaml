@@ -54,9 +54,13 @@ jobs:
                 status=$(aws ec2 describe-instance-status --instance-ids "$INSTANCE_ID" \
                 | jq -r '.InstanceStatuses[0].InstanceStatus.Status')
                 
+                echo "Status: $status"
+
                 count=0
                 #wait for status to be ok
                 while [[ "$status" != "ok" ]]; do
+                    echo "Status: $status"
+                    echo "Count: $count"
                     status=$(aws ec2 describe-instance-status --instance-ids "$INSTANCE_ID" \
                     | jq -r '.InstanceStatuses[0].InstanceStatus.Status')
                     sleep 10
@@ -65,6 +69,8 @@ jobs:
                         break
                     fi
                 done
+
+                echo "Exit Loop"
 
                 aws ssm send-command \
                 --instance-ids "$INSTANCE_ID" \
