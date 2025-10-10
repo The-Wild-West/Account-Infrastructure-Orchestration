@@ -23,7 +23,7 @@ jobs:
             id-token: write
             contents: read
         if: github.event_name == 'push' || github.event.pull_request.merged == true
-        uses: The-Wild-West/Shareable-Workflows/.github/workflows/terraform-apply.yaml@uat
+        uses: The-Wild-West/Shareable-Workflows/.github/workflows/terraform-apply.yaml@main
         with:
             environment: 'root'
         secrets:
