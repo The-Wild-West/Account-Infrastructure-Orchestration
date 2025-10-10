@@ -29,26 +29,6 @@ jobs:
         secrets:
             admin_account_id: ${{ secrets.ADMIN_ACCOUNT_ID }}
             role_name: ${{ secrets.OIDC_ROLE_PREFIX }}
-    Write-Outputs:
-        runs-on: ubuntu-latest
-        needs: Infrastructure-Deployment
-        if: github.event_name == 'push' || github.event.pull_request.merged == true
-        outputs:
-            ansible_control_node_id: ${{ steps.convert_outputs.outputs.ansible_control_node_id }}
-        steps:
-            - name: Display Outputs
-              id: display_outputs
-              run: |
-                cat << 'EOF' >> GITHUB_OUTPUT
-                all_outputs_json=${{ needs.Infrastructure-Deployment.outputs.all_outputs_json }}
-                EOF
-            - name: Convert Outputs
-              id: convert_outputs
-              run: |
-                CONTROL_NODE_ID=$(echo '${{ needs.Infrastructure-Deployment.outputs.all_outputs_json }}' | jq -r '.control_node_id.value')
-                echo "Extracted ID: $CONTROL_NODE_ID"
-                echo "ansible_control_node_id=$CONTROL_NODE_ID" >> GITHUB_OUTPUT
-                echo "Step output set to: $CONTROL_NODE_ID"
     Ansible-Configuration:
         needs: Infrastructure-Deployment
         permissions:
