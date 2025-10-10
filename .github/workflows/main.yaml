@@ -36,7 +36,9 @@ jobs:
         steps:
             - name: Display Outputs
               run: |
-                echo "all_outputs_json=${{ needs.Infrastructure-Deployment.outputs.all_outputs_json }}" >> GITHUB_OUTPUT
+                cat << 'EOF' >> GITHUB_OUTPUT
+                all_outputs_json=${{ needs.Infrastructure-Deployment.outputs.all_outputs_json }}
+                EOF
     Ansible-Configuration:
         permissions:
             id-token: write
