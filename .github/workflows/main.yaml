@@ -46,8 +46,9 @@ jobs:
               id: convert_outputs
               run: |
                 CONTROL_NODE_ID=$(echo '${{ needs.Infrastructure-Deployment.outputs.all_outputs_json }}' | jq -r '.control_node_id.value')
-                echo "$CONTROL_NODE_ID"
+                echo "Extracted ID: $CONTROL_NODE_ID"
                 echo "ansible_control_node_id=$CONTROL_NODE_ID" >> GITHUB_OUTPUT
+                echo "Step output set to: $CONTROL_NODE_ID"
     Ansible-Configuration:
         needs: Write-Outputs
         permissions:
