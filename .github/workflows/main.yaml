@@ -67,7 +67,7 @@ jobs:
               run: |
                 echo '${{ needs.Write-Outputs.outputs.ansible_control_node_id }}'
                 aws ssm send-command \
-                --instance-ids ${{ needs.Write-Outputs.outputs.ansible_control_node_id }} \
+                --instance-ids "${{ needs.Write-Outputs.outputs.ansible_control_node_id }}" \
                 --document-name "AWS-RunShellScript" \
                 --parameters '{"commands":["rm -rf /home/ubuntu/ansible","mkdir -p /home/ubuntu/ansible","cd /home/ubuntu/ansible","git clone https://github.com/The-Wild-West/Account-Infrastructure-Orchestration.git .","sudo rm -rf /etc/ansible/inventory","sudo cp -r inventory /etc/ansible/"]}' \
                 --region us-east-1  
