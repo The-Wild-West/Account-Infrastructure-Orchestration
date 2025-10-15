@@ -30,8 +30,9 @@ resource "aws_instance" "ansible_control_node" {
 }
 
 resource "aws_network_interface" "primary_network_interface" {
-  subnet_id   = aws_subnet.public_subnet.id
-  private_ips = ["10.0.1.4"]
+  subnet_id       = aws_subnet.public_subnet.id
+  private_ips     = ["10.0.1.4"]
+  security_groups = [aws_security_group.sg.id]
 
   tags = {
     Name = "primary_network_interface"
