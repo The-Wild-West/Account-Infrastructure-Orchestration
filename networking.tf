@@ -73,20 +73,10 @@ resource "aws_vpc_peering_connection" "dev_peer" {
   vpc_id        = aws_vpc.main.id
 }
 
-resource "aws_vpc_peering_connection_accepter" "dev_peer_accepter" {
-  vpc_peering_connection_id = aws_vpc_peering_connection.dev_peer.id
-  auto_accept               = true
-}
-
 resource "aws_vpc_peering_connection" "uat_peer" {
   peer_owner_id = var.uat_account_id
   peer_vpc_id   = var.peer_vpc_id_uat
   vpc_id        = aws_vpc.main.id
-}
-
-resource "aws_vpc_peering_connection_accepter" "uat_peer_accepter" {
-  vpc_peering_connection_id = aws_vpc_peering_connection.uat_peer.id
-  auto_accept               = true
 }
 
 resource "aws_vpc_peering_connection" "prod_peer" {
@@ -94,9 +84,4 @@ resource "aws_vpc_peering_connection" "prod_peer" {
   peer_vpc_id   = var.peer_vpc_id_prod
   vpc_id        = aws_vpc.main.id
   
-}
-
-resource "aws_vpc_peering_connection_accepter" "prod_peer_acceptor" {
-  vpc_peering_connection_id = aws_vpc_peering_connection.prod_peer.id
-  auto_accept               = true
 }
