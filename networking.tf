@@ -72,6 +72,7 @@ resource "aws_vpc_peering_connection" "dev_peer" {
   peer_vpc_id   = var.peer_vpc_id_dev
   peer_region   = "us-east-1"
   vpc_id        = aws_vpc.main.id
+  auto_accept   = true
 }
 
 resource "aws_vpc_peering_connection" "uat_peer" {
@@ -79,6 +80,7 @@ resource "aws_vpc_peering_connection" "uat_peer" {
   peer_vpc_id   = var.peer_vpc_id_uat
   peer_region   = "us-east-1"
   vpc_id        = aws_vpc.main.id
+  auto_accept   = true
 }
 
 resource "aws_vpc_peering_connection" "prod_peer" {
@@ -86,4 +88,5 @@ resource "aws_vpc_peering_connection" "prod_peer" {
   peer_vpc_id   = var.peer_vpc_id_prod
   peer_region   = "us-east-1"
   vpc_id        = aws_vpc.main.id
+  auto_accept   = true
 }
