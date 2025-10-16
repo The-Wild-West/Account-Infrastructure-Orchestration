@@ -96,7 +96,7 @@ resource "aws_vpc_peering_connection" "prod_peer" {
   
 }
 
-resource "aws_vpc_peering_connection_acceptor" "prod_peer_acceptor" {
+resource "aws_vpc_peering_connection_accepter" "prod_peer_acceptor" {
   vpc_peering_connection_id = aws_vpc_peering_connection.prod_peer.id
   auto_accept               = true
 }
