@@ -85,3 +85,25 @@ resource "aws_vpc_peering_connection" "prod_peer" {
   vpc_id        = aws_vpc.main.id
   
 }
+resource "aws_route_table" "peering" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block                = var.dev_vpc_cidr
+    vpc_peering_connection_id = aws_vpc_peering_connection.dev_peer.id
+  }
+
+  route {
+    cidr_block                = var.uat_vpc_cidr
+    vpc_peering_connection_id = aws_vpc_peering_connection.uat_peer.id
+  }
+
+  route {
+    cidr_block                = var.prod_vpc_cidr
+    vpc_peering_connection_id = aws_vpc_peering_connection.prod_peer.id
+  }
+
+  tags = {
+    Name = "peering-route-table"
+  }
+}
