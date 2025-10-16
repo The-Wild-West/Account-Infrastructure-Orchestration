@@ -28,3 +28,18 @@ variable "prod_account_id" {
   type        = string
 }
 
+variable "prod_vpc_cidr" {
+  description = "prod vpc cidr"
+  type        = string
+}
+
+variable "uat_vpc_cidr" {
+  description = "uat vpc cidr"
+  type        = string
+}
+
+variable "dev_vpc_cidr" {
+  description = "dev vpc cidr"
+  type        = string
+}
+
