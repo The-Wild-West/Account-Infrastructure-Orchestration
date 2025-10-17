@@ -6,6 +6,7 @@ sudo apt install -y software-properties-common unzip
 sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt update
 sudo apt install -y ansible unzip
+sudo apt install -y jq
 
 #Register with SSM
 sudo mkdir /temp/ssm
