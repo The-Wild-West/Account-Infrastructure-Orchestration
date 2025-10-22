@@ -1,0 +1,10 @@
+server {
+    listen {{ nginx_port }};
+    server_name your_domain_or_ip;
+
+    root {{ app_path }}/build; # Assuming 'build' is the output directory of your React app
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
